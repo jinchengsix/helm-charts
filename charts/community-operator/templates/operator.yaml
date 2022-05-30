@@ -72,3 +72,5 @@ spec:
             readOnlyRootFilesystem: true
             runAsUser: 2000
       serviceAccountName: {{ .Values.operator.name }}
+      imagePullSecrets:
+        - name: {{ .Values.registry.secretName }}

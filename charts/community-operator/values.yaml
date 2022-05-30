@@ -11,7 +11,7 @@ operator:
   deploymentName: mongodb-kubernetes-operator
 
   # Version of mongodb-kubernetes-operator
-  version: 0.7.3
+  version: latest
 
   # Uncomment this line to watch all namespaces
   # watchNamespace: "*"
@@ -34,6 +34,7 @@ operator:
 ## Operator's database
 database:
   name: mongodb-database
+  namespace: mongodb
 
 agent:
   name: mongodb-agent
@@ -46,14 +47,15 @@ readinessProbe:
   version: 1.0.8
 mongodb:
   name: mongo
-  repo: docker.io
+  repo: dockerhub.qingcloud.com/mongodb_op
 
 registry:
-  agent: quay.io/mongodb
-  versionUpgradeHook: quay.io/mongodb
-  readinessProbe: quay.io/mongodb
-  operator: quay.io/mongodb
-  pullPolicy: Always
+  agent: dockerhub.qingcloud.com/mongodb_op
+  versionUpgradeHook: dockerhub.qingcloud.com/mongodb_op
+  readinessProbe: dockerhub.qingcloud.com/mongodb_op
+  operator: dockerhub.qingcloud.com/mongodb_op
+  pullPolicy: IfNotPresent
+  secretName: dockerhub
 
 # Set to false if CRDs have been installed already. The CRDs can be installed
 # manually from the code repo: github.com/mongodb/mongodb-kubernetes-operator or
@@ -63,9 +65,13 @@ community-operator-crds:
 
 # Deploys MongoDB with `resource` attributes.
 createResource: false
+
+# 判断当前动作是更新还是创建 [create,update,delete]
+action: create
+
 resource:
-  name: mongodb-replica-set
-  version: 4.4.0
+  name: mongodb
+  version: 4.2.19
   members: 3
   tls:
     enabled: false
@@ -77,3 +83,28 @@ resource:
     certManager:
       certDuration: 8760h   # 365 days
       renewCertBefore: 720h   # 30 days
+  prometheus:
+    enabled: true # 是否开启 promethus, true(default) or false
+    username: prometheus
+    password: prometheus
+    metricsPath: /metrics
+    port: 9216
+    tlsSecretKeyRef:
+  users:
+    username: shuaib
+    password: zhu1241jie
+
+  additionalMongodConfig:
+    oplogSizeMB: 10240
+    port: 27017
+
+  statefulSet:
+    mongod:
+      cpu: 2
+      memory: 2G
+    agent:
+      cpu: 0.2
+      memory: 200M
+    volumeClaimTemplates:
+      storage: 100Gi
+

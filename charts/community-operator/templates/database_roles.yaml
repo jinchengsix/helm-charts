@@ -10,7 +10,7 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
   name: {{ .Values.database.name }}
-  namespace: {{ .Release.Namespace }}
+  namespace: {{ .Values.database.namespace }}
 rules:
   - apiGroups:
       - ""
@@ -32,7 +32,7 @@ kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: {{ .Values.database.name }}
-  namespace: {{ .Release.Namespace }}
+  namespace: {{ .Values.database.namespace }}
 subjects:
   - kind: ServiceAccount
     name: {{ .Values.database.name }}
