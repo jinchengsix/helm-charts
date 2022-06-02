@@ -48,17 +48,8 @@ readinessProbe:
 mongodb:
   name: mongo
 
-
 pullPolicy: IfNotPresent
 
-registry:
-  agent: dockerhub.qingcloud.com/mongodb_op
-  secret: eyJhdXRocyI6eyJkb2NrZXJodWIucWluZ2Nsb3VkLmNvbSI6eyJ1c2VybmFtZSI6ImNoZW54aW4iLCJwYXNzd29yZCI6Ilhpb25nMDMyMSIsImF1dGgiOiJZMmhsYm5ocGJqcFlhVzl1WnpBek1qRT0ifX19
-  versionUpgradeHook: dockerhub.qingcloud.com/mongodb_op
-  readinessProbe: dockerhub.qingcloud.com/mongodb_op
-  operator: dockerhub.qingcloud.com/mongodb_op
-  mongodb: dockerhub.qingcloud.com/mongodb_op
-  secretName: dockerhub
 
 # Set to false if CRDs have been installed already. The CRDs can be installed
 # manually from the code repo: github.com/mongodb/mongodb-kubernetes-operator or
