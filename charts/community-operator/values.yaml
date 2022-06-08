@@ -40,16 +40,16 @@ agent:
   name: mongodb-agent
   version: 11.12.0.7388-1
 versionUpgradeHook:
-  name: mongodb-kubernetes-operator-version-upgrade-post-start-hook
+  name: version-hook
   version: 1.0.4
 readinessProbe:
-  name: mongodb-kubernetes-readinessprobe
+  name: readiness-probe
   version: 1.0.8
 mongodb:
-  name: mongo
+  name: mongodb
 
 
-pullPolicy: IfNotPresent
+pullPolicy: Always
 
 registry:
   agent: docker.io/jinchengsix
