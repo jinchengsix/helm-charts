@@ -66,6 +66,7 @@ rules:
     - get
     - list
     - create
+    - watch
 
 ---
 kind: {{ if eq (.Values.operator.watchNamespace | default "") "*" }} ClusterRoleBinding {{ else }} RoleBinding {{ end }}
