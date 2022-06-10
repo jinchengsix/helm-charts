@@ -9,7 +9,8 @@ spec:
   # Service labels to match
   selector:
     matchLabels:
-      app: mongodb-svc
+      app.kubernetes.io/name: mongodb
+      app.kubernetes.io/component: database
 
   endpoints:
     # Configuring a Prometheus Endpoint with basic Auth.
